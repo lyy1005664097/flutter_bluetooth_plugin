@@ -19,6 +19,7 @@ import androidx.core.app.ActivityCompat;
 
 import com.lyy.flutter_bluetooth.thread.AcceptThread;
 import com.lyy.flutter_bluetooth.thread.ConnectThread;
+import com.lyy.flutter_bluetooth.utils.BluetoothUtils;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -71,6 +72,10 @@ public class BluetoothDelegate implements PluginRegistry.ActivityResultListener,
     public void unregisterRec(){
         Log.d(TAG, "registerRec: 注销蓝牙广播======================");
         activity.unregisterReceiver(mReceiver);
+    }
+
+    public String getLocalAddress(){
+        return BluetoothUtils.getBtAddressByReflection();
     }
 
     public void openBluetooth(MethodCall call, MethodChannel.Result result){
