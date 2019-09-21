@@ -70,7 +70,7 @@ public class BluetoothDelegate implements PluginRegistry.ActivityResultListener,
     }
 
     public void unregisterRec(){
-        Log.d(TAG, "registerRec: 注销蓝牙广播======================");
+        Log.d(TAG, "unregisterRec: 注销蓝牙广播======================");
         activity.unregisterReceiver(mReceiver);
     }
 

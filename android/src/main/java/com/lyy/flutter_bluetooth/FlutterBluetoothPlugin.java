@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 
+import io.flutter.app.FlutterActivity;
 import io.flutter.plugin.common.EventChannel;
 import io.flutter.plugin.common.EventChannel.StreamHandler;
 import io.flutter.plugin.common.MethodCall;
@@ -80,11 +81,13 @@ public class FlutterBluetoothPlugin implements MethodCallHandler, StreamHandler{
 
       @Override
       public void onActivityDestroyed(Activity activity) {
-        delegate.unregisterRec();
-        if(activity == registrar.activity()){
-          ((Application) registrar.context()).unregisterActivityLifecycleCallbacks(this);
+        if(activity instanceof FlutterActivity) {
+          delegate.unregisterRec();
+          if (activity == registrar.activity()) {
+            ((Application) registrar.context()).unregisterActivityLifecycleCallbacks(this);
+          }
+          Log.d(TAG, "onActivityDestroyed===============");
         }
-        Log.d(TAG, "onActivityDestroyed===============");
       }
     };
     ((Application)registrar.context()).registerActivityLifecycleCallbacks(activityLifecycleCallbacks);
