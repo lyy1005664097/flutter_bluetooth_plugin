@@ -16,6 +16,11 @@ class FlutterBluetooth {
   //    return _eventChannel.receiveBroadcastStream().map((event) => print(event));
   }
 
+  //获取本机蓝牙mac地址
+  static Future<String> get localBluetooth async {
+    return _channel.invokeMethod<String>("getLocalAddress");
+  }
+
 
   //打开蓝牙
   static Future<bool> openBluetooth() async {
