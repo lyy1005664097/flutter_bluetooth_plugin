@@ -188,11 +188,9 @@ public class BluetoothDelegate implements PluginRegistry.ActivityResultListener,
         if (requestCode == REQUEST_BT_ENABLE_CODE) {
             if (resultCode == RESULT_OK) {
                 //用户允许打开蓝牙
-        //        mMessageAdapter.addMessage("用户同意打开蓝牙");
                 result.success(true);
             } else if (resultCode == RESULT_CANCELED) {
                 //用户取消打开蓝牙
-         //       mMessageAdapter.addMessage("用户拒绝打开蓝牙");
                 result.error("open bluetooth", "用户拒绝打开蓝牙",null);
             }
         }
@@ -219,12 +217,11 @@ public class BluetoothDelegate implements PluginRegistry.ActivityResultListener,
             switch (action) {
                 case BluetoothDevice.ACTION_FOUND:
                     BluetoothDevice device = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
-               //     mMessageAdapter.addMessage("找到设备：" + device.getName() + "\t\t\t" + device.getAddress());
-               //     if (mRvAdapter != null) {
-               //         mRvAdapter.addDevice(device);
-               //     }
+
                     Map<String, String> map = new HashMap<>();
-                    map.put("name", intent.getStringExtra(BluetoothDevice.EXTRA_NAME));
+                    String name = intent.getStringExtra(BluetoothDevice.EXTRA_NAME);
+                    if(name == null) name = "null";
+                    map.put("name", name);
                     map.put("address", device.getAddress());
                     devices.add(map);
                     Log.d("BlueToothStateReceiver", "onReceive: " + map.get("name"));
@@ -234,7 +231,6 @@ public class BluetoothDelegate implements PluginRegistry.ActivityResultListener,
                     if (mBluetoothAdapter != null && mBluetoothAdapter.isDiscovering()) {
                         mBluetoothAdapter.cancelDiscovery();
                     }
-                //    mMessageAdapter.addMessage("搜索结束");
                     Log.d("BlueToothStateReceiver", "onReceive: 搜索结束");
                     result.success(devices);
 
