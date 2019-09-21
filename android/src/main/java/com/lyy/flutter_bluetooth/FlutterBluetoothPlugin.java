@@ -97,6 +97,8 @@ public class FlutterBluetoothPlugin implements MethodCallHandler, StreamHandler{
 
     if (call.method.equals("getPlatformVersion")) {
       result.success("Android " + android.os.Build.VERSION.RELEASE);
+    } else if(call.method.equals("getLocalAddress")){
+      result.success(delegate.getLocalAddress());
     } else if(call.method.equals("openBluetooth")){
       delegate.openBluetooth(call, result);
     } else if(call.method.equals("closeBluetooth")){
