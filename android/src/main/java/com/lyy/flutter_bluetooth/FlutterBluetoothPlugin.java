@@ -81,6 +81,7 @@ public class FlutterBluetoothPlugin implements MethodCallHandler, StreamHandler{
 
       @Override
       public void onActivityDestroyed(Activity activity) {
+        Log.d(TAG, "onActivityDestroyed: **************************" + activity.getLocalClassName());
         if(activity instanceof FlutterActivity) {
           delegate.unregisterRec();
           if (activity == registrar.activity()) {
